@@ -44,11 +44,14 @@ timeCount(10)
 // Countries population greater than 2 crores
 const getCountries = () => {
 
+    //const compare = (a, b) => a>b
     const contries = fetch('https://restcountries.eu/rest/v2/all')
         .then(data => data.json())
         .then(data => {
             console.log(data)
-            const countryPopulation = data.filter(country => country.population > 20000000).map(data => data.name);
+            const countryPopulation = data.filter(country => country.population > 20000000)
+                .map(data => ({ name: data.name, population: data.population }))
+                .sort((a, b) => b.population - a.population);
             console.log(countryPopulation)
 
         });
